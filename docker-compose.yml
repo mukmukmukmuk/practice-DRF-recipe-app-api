@@ -4,9 +4,14 @@ services:
   app:
     build:
       context: .
-      ports:
-        - "8000:8000"
-      volumes:
-        - ./app:/app
-      command: >
-        sh -c "python manage.py runserver 0.0.0.0:8000"
+      args:
+        # 실행할 때는 개발자 모드 on
+        # docker-compose up --build로 임시 container를 만들때
+        # 인자가 넘어감
+        - DEV=true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
